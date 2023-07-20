@@ -1,0 +1,47 @@
+int Green = 8;
+int Red = 9;
+int Orange = 10;
+int Blue = 11;
+
+bool greenState = false;
+bool redState = false;
+bool orangeState = false;
+bool blueState = false;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(Green, OUTPUT);
+  pinMode(Red, OUTPUT);
+  pinMode(Orange, OUTPUT);
+  pinMode(Blue, OUTPUT);
+}
+
+String voice;
+
+void loop() {
+  if (Serial.available() > 0) {
+    voice = Serial.readStringUntil('\n'); // Read the string from Serial until a newline character is received
+    voice.trim(); // Remove leading/trailing spaces (if any)
+    Serial.print(voice + '\n'); // Print the received command for debugging
+
+    if (voice == "green") {
+      greenState = !greenState; // Toggle Green LED state
+      digitalWrite(Green, greenState);
+    }
+
+    else if (voice == "red") {
+      redState = !redState; // Toggle Red LED state
+      digitalWrite(Red, redState);
+    }
+
+    else if (voice == "orange") {
+      orangeState = !orangeState; // Toggle Orange LED state
+      digitalWrite(Orange, orangeState);
+    }
+
+    else if (voice == "blue") {
+      blueState = !blueState; // Toggle Blue LED state
+      digitalWrite(Blue, blueState);
+    }
+  }
+}
